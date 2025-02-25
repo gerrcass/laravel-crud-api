@@ -1,0 +1,11 @@
+version: 1.0
+runtime: php
+build:
+  commands:
+    build:
+      - echo "Build phase"
+run:
+  runtime-version: 8.2
+  command: php artisan serve
+  post-deployment:
+    - php artisan migrate --force
