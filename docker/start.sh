@@ -15,6 +15,10 @@ for var in APP_KEY DB_HOST DB_DATABASE DB_USERNAME DB_PASSWORD DB_SSLMODE; do
     fi
 done
 
+# Run migrations
+echo "Running migrations..."
+php artisan migrate --force || exit 1
+
 # Esperar a que la base de datos esté disponible
 echo "Waiting for database connection..."
 max_tries=30
@@ -36,9 +40,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Run migrations
-echo "Running migrations..."
-php artisan migrate --force || exit 1
 
 # Start PHP-FPM
 echo "Starting PHP-FPM..."
